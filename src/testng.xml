@@ -1,0 +1,10 @@
+<suite name="Can Be any name" verbose="1" parallel="false" >
+
+    <test name="some test">
+        <classes>
+            <class name="com.gradletest.gradletest" />
+        </classes>
+    </test>
+
+
+</suite>
