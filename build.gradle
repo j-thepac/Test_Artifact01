@@ -1,7 +1,7 @@
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
-apply plugin: 'testng'
+
 
 sourceCompatibility = 1.8
 
@@ -11,4 +11,9 @@ repositories {
 
 dependencies {
     testCompile('org.testng:testng:6.5.1')
+}
+test {
+    useTestNG {
+        suites 'src/testng.xml'
+    }
 }
