@@ -15,5 +15,12 @@ dependencies {
 test {
     useTestNG {
         suites 'src/testng.xml'
+
+        //set TestNG output dir
+        outputDirectory = file("$project.buildDir//testngOutput")
+
+        //required to turn on TestNG reports
+        useDefaultListeners = true
+
     }
 }

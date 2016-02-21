@@ -12,4 +12,9 @@ public class gradletest {
     public void test1(){
         System.out.print("hi");
     }
+
+    @Test
+    public void test2(){
+        System.out.print("test2");
+    }
 }
