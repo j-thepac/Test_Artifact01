@@ -10,7 +10,17 @@ repositories {
 }
 
 dependencies {
-    testCompile('org.testng:testng:6.5.1')
+    //http://mvnrepository.com/artifact/org.testng/testng/6.9.10
+    testCompile('org.testng:testng:6.9.10')
+
+    //http://mvnrepository.com/artifact/org.uncommons/reportng
+    testCompile 'org.uncommons:reportng:1.1.4'
+
+    //http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    testCompile 'org.seleniumhq.selenium:selenium-java:2.52.0'
+
+    testCompile 'com.google.inject:guice:3.0'
+
 }
 test {
     useTestNG {
@@ -23,4 +33,12 @@ test {
         useDefaultListeners = true
 
     }
+
+    options {
+        listeners << 'org.uncommons.reportng.HTMLReporter'
+        listeners << 'org.uncommons.reportng.JUnitXMLReporter'
+        listeners << 'com.report_generator.TestNGCustomReportListener'
+    }
+
+
 }

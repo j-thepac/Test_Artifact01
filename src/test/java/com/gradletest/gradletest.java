@@ -1,6 +1,8 @@
 package com.gradletest;
 
 //import org.testng.annotations.BeforeMethod;
+//import org.testng.annotations.Test;
+
 import org.testng.annotations.Test;
 
 /**
@@ -10,11 +12,11 @@ public class gradletest {
 
     @Test
     public void test1(){
-        System.out.print("hi");
+        System.out.println("test1");
     }
 
     @Test
     public void test2(){
-        System.out.print("test2");
+        System.out.println("test2");
     }
 }
