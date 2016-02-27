@@ -1,3 +1,5 @@
+//http://htchttp.s3.amazonaws.com/books/Gradle%20Beyond%20the%20Basics.pdf
+
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
