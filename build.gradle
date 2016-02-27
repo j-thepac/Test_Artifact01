@@ -37,5 +37,4 @@ test {
         listeners << 'com.report_generator.TestNGCustomReportListener'
     }
 
-
 }

@@ -1,3 +1,4 @@
+<!--     -->
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Can Be any name" verbose="1" parallel="false" >
 
