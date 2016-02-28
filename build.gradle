@@ -18,6 +18,7 @@ dependencies {
     testCompile 'org.seleniumhq.selenium:selenium-java:2.52.0'   //http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
     testCompile 'com.google.inject:guice:3.0'
     testCompile 'velocity:velocity-dep:1.4'
+    testCompile 'com.miglayout:miglayout:3.7.4'
 
 
 }
