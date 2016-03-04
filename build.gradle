@@ -23,6 +23,10 @@ dependencies {
 
 }
 test {
+	testLogging {
+	showStandardStreams = true
+	}
+	
     useTestNG {
         suites 'src/testng.xml'
 
