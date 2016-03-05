@@ -18,6 +18,8 @@ import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GUI extends JDialog {
 
@@ -64,12 +66,15 @@ public class GUI extends JDialog {
 			Gui_Checkbox.setBounds(219, 56, 59, 23);
 			Gui_Checkbox.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(Gui_Checkbox.isEnabled()==true){
+					if(Gui_Checkbox.isSelected()==true){
 						Gui_TextField_Tcs.setEnabled(false);						
 						sGUI_testcases="";
+						bGUI_checkbox=true;
 					}
 					else
 					{
+						sGUI_testcases=Gui_TextField_Tcs.getText();
+						bGUI_checkbox=false;
 						Gui_TextField_Tcs.setEnabled(true);
 					}
 						
@@ -84,6 +89,12 @@ public class GUI extends JDialog {
 		}
 		{
 			Gui_TextField_Tcs = new JTextField();
+			Gui_TextField_Tcs.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent arg0) {
+					sGUI_testcases=Gui_TextField_Tcs.getText();
+				}
+			});
 			Gui_TextField_Tcs.setBounds(219, 110, 210, 20);
 			Gui_TextField_Tcs.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -126,6 +137,7 @@ public class GUI extends JDialog {
 						gradletest.sGUI_Browser=sGUI_Browser;
 						gradletest.sGUI_testcases=sGUI_testcases;
 						setVisible(false);
+						dispose();
 						
 					}
 				});

@@ -33,7 +33,7 @@ public class gradletest {
     	GUI_object.setModal(true);
 		GUI_object.setVisible(true);
 		//GUI_object.dispose();
-	    System.out.println(bGUI_checkbox+" " +sGUI_Browser+" "+sGUI_testcases);
+	    System.out.println("bGUI_checkbox="+bGUI_checkbox+" " +"sGUI_Browser="+sGUI_Browser+" "+"sGUI_testcases="+sGUI_testcases);
 	    		
     	}
 
