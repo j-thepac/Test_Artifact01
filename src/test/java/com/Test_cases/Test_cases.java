@@ -1,4 +1,4 @@
-package com.gradletest;
+package com.Test_cases;
 
 //import org.testng.annotations.BeforeMethod;
 //import org.testng.annotations.Test;
@@ -16,7 +16,7 @@ import javax.swing.*;
 /**
  * Created by Guest on 2/21/2016.
  */
-public class gradletest {
+public class Test_cases {
 
     public   static StringBuffer check_execution =new StringBuffer();
     public static String username;
@@ -33,7 +33,7 @@ public class gradletest {
     	GUI_object.setModal(true);
 		GUI_object.setVisible(true);
 		//GUI_object.dispose();
-	    System.out.println("bGUI_checkbox="+bGUI_checkbox+" " +"sGUI_Browser="+sGUI_Browser+" "+"sGUI_testcases="+sGUI_testcases);
+	   // System.out.println("bGUI_checkbox="+bGUI_checkbox+" " +"sGUI_Browser="+sGUI_Browser+" "+"sGUI_testcases="+sGUI_testcases);
 	    		
     	}
 

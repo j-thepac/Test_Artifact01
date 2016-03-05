@@ -9,7 +9,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
-import com.gradletest.gradletest;
+import com.Test_cases.Test_cases;
+
+
+
 
 
 import javax.swing.JCheckBox;
@@ -24,10 +27,17 @@ import java.awt.event.KeyEvent;
 public class GUI extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	private JLabel gui_title;
+	private JLabel Gui_browserlabel;
+	private JLabel gui_excellabel;
+	
+	private JCheckBox Gui_Checkbox;
+	
 	private JTextField Gui_TextField_Tcs;
 	private static boolean bGUI_checkbox;
 	private static String sGUI_testcases;
 	private static String sGUI_Browser="fireFox";
+	private JCheckBox Gui_Checkbox_excel;
 	/**
 	 * Launch the application.
 	 */
@@ -40,6 +50,9 @@ public class GUI extends JDialog {
 //			e.printStackTrace();
 //		}
 //	}
+	private JComboBox<String> gui_DropDown_Browser;
+	private JButton okButton;
+	private JButton cancelButton;
 
 	/**
 	 * Create the dialog.
@@ -52,21 +65,21 @@ public class GUI extends JDialog {
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);
 		{
-			JLabel gui_title = new JLabel("Jeeves Automation Framework");
+			 gui_title = new JLabel("Jeeves Automation Framework");
 			gui_title.setBounds(120, 11, 148, 14);
 			contentPanel.add(gui_title);
 		}
 		{
-			JLabel gui_excellabel = new JLabel("Use Excel");
+			 gui_excellabel = new JLabel("Use Excel");
 			gui_excellabel.setBounds(86, 60, 102, 14);
 			contentPanel.add(gui_excellabel);
 		}
 		{
-			JCheckBox Gui_Checkbox = new JCheckBox("Yes/No");
-			Gui_Checkbox.setBounds(219, 56, 59, 23);
-			Gui_Checkbox.addActionListener(new ActionListener() {
+			Gui_Checkbox_excel = new JCheckBox("Yes/No");
+			Gui_Checkbox_excel.setBounds(219, 56, 59, 23);
+			Gui_Checkbox_excel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(Gui_Checkbox.isSelected()==true){
+					if(Gui_Checkbox_excel.isSelected()==true){
 						Gui_TextField_Tcs.setEnabled(false);						
 						sGUI_testcases="";
 						bGUI_checkbox=true;
@@ -80,7 +93,7 @@ public class GUI extends JDialog {
 						
 				}
 			});
-			contentPanel.add(Gui_Checkbox);
+			contentPanel.add(Gui_Checkbox_excel);
 		}
 		{
 			JLabel gui_testcaseslabel = new JLabel("Test Cases (3,34,...)");
@@ -91,17 +104,11 @@ public class GUI extends JDialog {
 			Gui_TextField_Tcs = new JTextField();
 			Gui_TextField_Tcs.addKeyListener(new KeyAdapter() {
 				@Override
-				public void keyTyped(KeyEvent arg0) {
+				public void keyPressed(KeyEvent arg0) {
 					sGUI_testcases=Gui_TextField_Tcs.getText();
 				}
 			});
 			Gui_TextField_Tcs.setBounds(219, 110, 210, 20);
-			Gui_TextField_Tcs.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					sGUI_testcases=Gui_TextField_Tcs.getText();
-					
-				}
-			});
 			contentPanel.add(Gui_TextField_Tcs);
 			Gui_TextField_Tcs.setColumns(10);
 		}
@@ -111,18 +118,18 @@ public class GUI extends JDialog {
 			contentPanel.add(Gui_browserlabel);
 		}
 		{
-			JComboBox Gui_DropDown_Browser = new JComboBox();
-			Gui_DropDown_Browser.setBounds(219, 161, 90, 20);
-			Gui_DropDown_Browser.addItem("firefox");
-			Gui_DropDown_Browser.addItem("ie");
-			Gui_DropDown_Browser.addItem("chrome");
+			gui_DropDown_Browser = new JComboBox<String>();
+			gui_DropDown_Browser.setBounds(219, 161, 90, 20);
+			gui_DropDown_Browser.addItem("firefox");
+			gui_DropDown_Browser.addItem("ie");
+			gui_DropDown_Browser.addItem("chrome");
 			
-			Gui_DropDown_Browser.addActionListener(new ActionListener() {
+			gui_DropDown_Browser.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					sGUI_Browser=Gui_DropDown_Browser.getSelectedItem().toString();
+					sGUI_Browser=gui_DropDown_Browser.getSelectedItem().toString();
 				}
 			});
-			contentPanel.add(Gui_DropDown_Browser);
+			contentPanel.add(gui_DropDown_Browser);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -130,12 +137,21 @@ public class GUI extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane);
 			{
-				JButton okButton = new JButton("OK");
+				okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						gradletest.bGUI_checkbox=bGUI_checkbox;
-						gradletest.sGUI_Browser=sGUI_Browser;
-						gradletest.sGUI_testcases=sGUI_testcases;
+//						if(bGUI_checkbox==false)
+//							//sGUI_Browser=Gui_DropDown_Browser.getSelectedItem().toString();
+//							gradletest.bGUI_checkbox=Gui_Checkbox.isSelected();
+//						if(Gui_Checkbox.isSelected()==false)
+//							gradletest.sGUI_Browser=gui_DropDown_Browser.getSelectedItem().toString();
+//						else
+//							gradletest.sGUI_Browser="";
+//							gradletest.sGUI_testcases=Gui_TextField_Tcs.getText();
+//						
+						Test_cases.bGUI_checkbox=bGUI_checkbox;
+						Test_cases.sGUI_Browser=sGUI_Browser;
+						Test_cases.sGUI_testcases=sGUI_testcases;
 						setVisible(false);
 						dispose();
 						
@@ -146,7 +162,7 @@ public class GUI extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						System.out.print("Cancel button pressed, Execution teerminated");
