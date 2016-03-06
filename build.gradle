@@ -2,11 +2,18 @@
 
 version '1.0-SNAPSHOT'
 
+buildscript {
+repositories { jcenter() }
+dependencies {  classpath 'de.undercouch:gradle-download-task:2.1.0'}
+  }
+
+
 apply plugin: 'java'
+apply plugin: 'de.undercouch.download'
 
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 repositories {
     mavenCentral()
@@ -24,6 +31,73 @@ dependencies {
    //	testCompile 'org.seleniumhq.selenium:selenium-chrome-driver:2.52.0'
 
 }
+
+//-------------------IE Driver start------------------
+import de.undercouch.gradle.tasks.download.Download
+
+task downloadIEDriverZip(type: Download) {
+  src 'http://selenium-release.storage.googleapis.com/2.52/IEDriverServer_Win32_2.52.0.zip'
+  dest new File(buildDir, 'IEDriverServer.zip')
+  quiet false
+  overwrite true
+  onlyIfNewer true
+  compress false
+  println "Download IE driver: " + src
+}
+
+task downloadAndUnzipIEDriver(dependsOn: downloadIEDriverZip, type: Copy) {
+  println "Unzip IE driver: " + downloadIEDriverZip.dest
+  from zipTree(downloadIEDriverZip.dest)
+  into buildDir
+}
+
+task ie(type: Test, dependsOn: downloadAndUnzipIEDriver) {
+  println 'Use IE driver: ' + buildDir + '/IEDriverServer.exe'
+  systemProperties['selenide.browser'] = 'ie'
+  systemProperties['webdriver.ie.driver'] = new File(buildDir, 'IEDriverServer.exe')
+  systemProperties['selenide.timeout'] = '8000'
+  include 'integration/**/*'
+  exclude '**/AlertText.*'
+  exclude '**/ConfirmTest.*'
+  exclude 'com/codeborne/selenide/**/*'
+}
+//---------------------------IE Driver End ---------------
+
+//--------------------CHROME Driver start 
+import org.gradle.internal.os.OperatingSystem;
+
+task downloadChromeDriverZip(type: Download) {
+  if (OperatingSystem.current().isMacOsX()) {
+    src 'http://chromedriver.storage.googleapis.com/2.21/chromedriver_mac32.zip'
+  }
+  else if (OperatingSystem.current().isLinux()) {
+    src 'http://chromedriver.storage.googleapis.com/2.21/chromedriver_linux64.zip'
+  }
+  else {
+    src 'http://chromedriver.storage.googleapis.com/2.21/chromedriver_win32.zip'
+  }
+  dest new File(buildDir, 'chromedriver.zip')
+  quiet false
+  overwrite true
+  onlyIfNewer true
+  compress false
+  println "Download Chrome driver: " + src + " to " + dest
+}
+
+task downloadAndUnzipChromeDriver(dependsOn: downloadChromeDriverZip, type: Copy) {
+  println "Unzip Chrome driver: " + downloadChromeDriverZip.dest
+  from zipTree(downloadChromeDriverZip.dest)
+  into buildDir
+}
+
+task chrome(type: Test, dependsOn: downloadAndUnzipChromeDriver) {
+  println 'Use Chrome driver: ' + buildDir + '/chromedriver'
+  systemProperties['selenide.browser'] = 'chrome'
+  systemProperties['webdriver.chrome.driver'] = new File(buildDir, 'chromedriver')
+  include 'integration/**/*'
+  exclude 'com/codeborne/selenide/**/*'
+}
+//------------------------Chrome Driver End----------------------------------
 
 
 test {
