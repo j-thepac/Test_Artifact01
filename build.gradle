@@ -1,4 +1,6 @@
 //http://htchttp.s3.amazonaws.com/books/Gradle%20Beyond%20the%20Basics.pdf
+//https://github.com/codeborne/selenide/blob/master/build.gradle
+
 
 version '1.0-SNAPSHOT'
 
@@ -8,12 +10,13 @@ dependencies {  classpath 'de.undercouch:gradle-download-task:2.1.0'}
   }
 
 
+apply plugin: 'maven'
 apply plugin: 'java'
 apply plugin: 'de.undercouch.download'
 
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -125,3 +128,9 @@ test {
     }
 
 }
+
+//task wrapper(type: Wrapper) {
+//  gradleVersion = '2.11'
+//  jarFile = './gradle-wrapper/gradle-wrapper.jar'
+ // scriptFile = './gradle'
+//}

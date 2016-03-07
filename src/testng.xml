@@ -10,7 +10,7 @@
 
     <test name="some test">
         <classes>
-            <class name="com.gradletest.gradletest" />
+            <class name="com.Test_cases.Test_cases" />
         </classes>
     </test>
 
