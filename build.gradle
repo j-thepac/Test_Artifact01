@@ -4,27 +4,16 @@
 
 version '1.0-SNAPSHOT'
 
-task gradle_start {
-println '\n---------------------START GRADLE------------------------'
-}
-
 buildscript {
 repositories { jcenter() }
 dependencies {  classpath 'de.undercouch:gradle-download-task:2.1.0'}
   }
 
 
-task gradle_addbuildscript {
-println '\n-------------------BUILD SCRIPT ADDED----------------------'
-}
-
-//apply plugin: 'maven'
+apply plugin: 'maven'
 apply plugin: 'java'
 apply plugin: 'de.undercouch.download'
 
-task gradle_plugin  {
-println '\n-------------------BUILD PLUGIN ADDED----------------------'
-}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -44,10 +33,6 @@ dependencies {
    //	testCompile 'org.seleniumhq.selenium:selenium-ie-driver:2.44.0'
    //	testCompile 'org.seleniumhq.selenium:selenium-chrome-driver:2.52.0'
 
-}
-
-task gradle_dependencies  {
-println '\n-------------------BUILD DEPENDENCIES ADDED----------------------\n\n'
 }
 
 //-------------------IE Driver start------------------
@@ -70,22 +55,16 @@ task downloadAndUnzipIEDriver(dependsOn: downloadIEDriverZip, type: Copy) {
 }
 
 task ie(type: Test, dependsOn: downloadAndUnzipIEDriver) {
-  
+  println 'Use IE driver: ' + buildDir + '/IEDriverServer.exe'
   systemProperties['selenide.browser'] = 'ie'
   systemProperties['webdriver.ie.driver'] = new File(buildDir, 'IEDriverServer.exe')
-  println 'Use IE driver: ' + buildDir + '/IEDriverServer.exe'
-  println 'System.setProperty(webdriver.ie.driver) -- configured to above location'
-  
   systemProperties['selenide.timeout'] = '8000'
   include 'integration/**/*'
   exclude '**/AlertText.*'
   exclude '**/ConfirmTest.*'
   exclude 'com/codeborne/selenide/**/*'
 }
-
-task gradle_ie_Browser {
-println '------------------- IE BROWSER CONFIGURED ----------------------\n\n'
-}
+//---------------------------IE Driver End ---------------
 
 //--------------------CHROME Driver start 
 import org.gradle.internal.os.OperatingSystem;
@@ -105,7 +84,7 @@ task downloadChromeDriverZip(type: Download) {
   overwrite true
   onlyIfNewer true
   compress false
-  println "\nDownload Chrome driver: " + src + " to " + dest
+  println "Download Chrome driver: " + src + " to " + dest
 }
 
 task downloadAndUnzipChromeDriver(dependsOn: downloadChromeDriverZip, type: Copy) {
@@ -115,24 +94,14 @@ task downloadAndUnzipChromeDriver(dependsOn: downloadChromeDriverZip, type: Copy
 }
 
 task chrome(type: Test, dependsOn: downloadAndUnzipChromeDriver) {
-  
+  println 'Use Chrome driver: ' + buildDir + '/chromedriver'
   systemProperties['selenide.browser'] = 'chrome'
   systemProperties['webdriver.chrome.driver'] = new File(buildDir, 'chromedriver')
-  println 'Use Chrome driver: ' + buildDir + '/chromedriver'
-  println 'System.setProperty(webdriver.chrome.driver) -- configured to above location'
   include 'integration/**/*'
   exclude 'com/codeborne/selenide/**/*'
 }
+//------------------------Chrome Driver End----------------------------------
 
-
-task gradle_chrome_Browser {
-println '------------------- CHROME BROWSER CONFIGURED ----------------------\n\n'
-}
-
-
-task gradle_test {
-println '\n\n-------------------START TESTING ----------------------'
-}
 
 test {
 	testLogging {

@@ -23,7 +23,9 @@ public class Driver_class {
 			this.driver=new ChromeDriver();
 		else
 			this.driver=new FirefoxDriver();
-
+		
+		
+		//System.setProperty("webdriver.ie.driver", +"\\IEDriverServer.exe");
 		//System.setProperty("webdriver.ie.logfile", "F:\\Study\\IEDriverServer.log");
 		
 		this.driver.manage().timeouts().pageLoadTimeout(iPage_loadtimeout, TimeUnit.SECONDS); 
