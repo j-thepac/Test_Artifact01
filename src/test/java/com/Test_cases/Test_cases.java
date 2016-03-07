@@ -6,6 +6,8 @@ package com.Test_cases;
 
 
 
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
@@ -33,7 +35,7 @@ public class Test_cases {
     	GUI_object.setModal(true);
 		GUI_object.setVisible(true);
 		//GUI_object.dispose();
-	    System.out.println("bGUI_checkbox="+bGUI_checkbox+" " +"sGUI_Browser="+sGUI_Browser+" "+"sGUI_testcases="+sGUI_testcases);
+	   // System.out.println("bGUI_checkbox="+bGUI_checkbox+" " +"sGUI_Browser="+sGUI_Browser+" "+"sGUI_testcases="+sGUI_testcases);
 	    		
     	}
 
@@ -43,8 +45,16 @@ public class Test_cases {
         System.out.println("test1");
     }
 
-    @Test
-    public void test2(){
-        System.out.println("test2");
+    
+    @AfterMethod
+    public void teardown(){
+    	
     }
+    
+    @AfterSuite
+    public void cleanup(){
+    	
+    }
+    
+    
 }
