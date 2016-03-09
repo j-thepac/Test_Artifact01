@@ -1,6 +1,10 @@
 //http://htchttp.s3.amazonaws.com/books/Gradle%20Beyond%20the%20Basics.pdf
 //https://github.com/codeborne/selenide/blob/master/build.gradle
 
+task gradle_start{
+println '\n\n  _-_-_-_-_-_	STARTING GR@DL3 EXECUTION   _-_-_-_-_-_	\n\n'
+}
+
 
 version '1.0-SNAPSHOT'
 
@@ -35,10 +39,12 @@ dependencies {
 
 }
 
-//-------------------IE Driver start------------------
+
 import de.undercouch.gradle.tasks.download.Download
 
 task downloadIEDriverZip(type: Download) {
+
+println '\n-------------------IE initialization start------------------'
   src 'http://selenium-release.storage.googleapis.com/2.52/IEDriverServer_Win32_2.52.0.zip'
   dest new File(buildDir, 'IEDriverServer.zip')
   quiet false
@@ -63,13 +69,15 @@ task ie(type: Test, dependsOn: downloadAndUnzipIEDriver) {
   exclude '**/AlertText.*'
   exclude '**/ConfirmTest.*'
   exclude 'com/codeborne/selenide/**/*'
+  println '//---------------------------IE initialization finished ---------------\n'
 }
-//---------------------------IE Driver End ---------------
 
-//--------------------CHROME Driver start 
+
+
 import org.gradle.internal.os.OperatingSystem;
 
 task downloadChromeDriverZip(type: Download) {
+println '\n--------------------CHROME Driver initialization start ---------------'
   if (OperatingSystem.current().isMacOsX()) {
     src 'http://chromedriver.storage.googleapis.com/2.21/chromedriver_mac32.zip'
   }
@@ -99,10 +107,11 @@ task chrome(type: Test, dependsOn: downloadAndUnzipChromeDriver) {
   systemProperties['webdriver.chrome.driver'] = new File(buildDir, 'chromedriver')
   include 'integration/**/*'
   exclude 'com/codeborne/selenide/**/*'
+  println '//------------------------Chrome initialization finished----------------------------------\n'
 }
-//------------------------Chrome Driver End----------------------------------
 
 
+ println '//\n------------------------Testing Started---------------------------------'
 test {
 	testLogging {
 	

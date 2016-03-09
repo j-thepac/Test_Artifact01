@@ -35,7 +35,7 @@ public class Test_cases {
     	GUI_object.setModal(true);
 		GUI_object.setVisible(true);
 		//GUI_object.dispose();
-	   // System.out.println("bGUI_checkbox="+bGUI_checkbox+" " +"sGUI_Browser="+sGUI_Browser+" "+"sGUI_testcases="+sGUI_testcases);
+	  // System.out.println("bGUI_checkbox="+bGUI_checkbox+" " +"sGUI_Browser="+sGUI_Browser+" "+"sGUI_testcases="+sGUI_testcases);
 	    		
     	}
 
