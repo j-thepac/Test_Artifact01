@@ -6,10 +6,7 @@ package com.Test_cases;
 
 
 
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import com.library.GUI;
 
@@ -20,7 +17,7 @@ import javax.swing.*;
  */
 public class Test_cases {
 
-    public   static StringBuffer check_execution =new StringBuffer();
+    public static StringBuffer check_execution =new StringBuffer();
     public static String username;
 
 	public static boolean bGUI_checkbox;
@@ -35,8 +32,7 @@ public class Test_cases {
     	GUI_object.setModal(true);
 		GUI_object.setVisible(true);
 		//GUI_object.dispose();
-	  // System.out.println("bGUI_checkbox="+bGUI_checkbox+" " +"sGUI_Browser="+sGUI_Browser+" "+"sGUI_testcases="+sGUI_testcases);
-	    		
+	  // System.out.println("bGUI_checkbox="+bGUI_checkbox+" " +"sGUI_Browser="+sGUI_Browser+" "+"sGUI_testcases="+sGUI_testcases);	    		
     	}
 
 
