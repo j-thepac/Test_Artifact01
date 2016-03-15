@@ -6,8 +6,14 @@ package com.Test_cases;
 
 
 
-import org.testng.annotations.*;
+import java.util.ArrayList;
 
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Test;
+
+import com.library.Excel;
 import com.library.GUI;
 
 import javax.swing.*;
@@ -23,16 +29,29 @@ public class Test_cases {
 	public static boolean bGUI_checkbox;
 	public static String sGUI_testcases;
 	public static String sGUI_Browser;
-
+	
+	public Excel oExcel;
     
     @BeforeSuite
     public void before_suite() throws InterruptedException{
-
+    	
+    	ArrayList<Integer> aTest_case_ID=new ArrayList<Integer>();
+    	oExcel=new Excel();
     	GUI GUI_object=new GUI();
     	GUI_object.setModal(true);
 		GUI_object.setVisible(true);
+		
+		if(bGUI_checkbox==true)
+			aTest_case_ID.addAll(oExcel.get_testcases("C:\\Users\\Guest\\Desktop\\Test_sheet.xls", "Index"));
+		else
+			aTest_case_ID.add(1);
+		
+		for (int i:aTest_case_ID){
+			System.out.println(i);
+		}
 		//GUI_object.dispose();
-	  // System.out.println("bGUI_checkbox="+bGUI_checkbox+" " +"sGUI_Browser="+sGUI_Browser+" "+"sGUI_testcases="+sGUI_testcases);	    		
+	   // System.out.println("bGUI_checkbox="+bGUI_checkbox+" " +"sGUI_Browser="+sGUI_Browser+" "+"sGUI_testcases="+sGUI_testcases);
+	    		
     	}
 
 
