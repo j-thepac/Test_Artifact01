@@ -28,6 +28,9 @@ repositories {
 
 dependencies {
 
+	compile 'com.google.guava:guava:19.0'		// by google - Provides vast string apis,ArrayList >Array api etc.,
+	
+	
     testCompile('org.testng:testng:6.9.10') 						//http://mvnrepository.com/artifact/org.testng/testng/6.9.10
     testCompile 'org.uncommons:reportng:1.1.4'  					//http://mvnrepository.com/artifact/org.uncommons/reportng
     testCompile 'org.seleniumhq.selenium:selenium-java:2.52.0'   //http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java

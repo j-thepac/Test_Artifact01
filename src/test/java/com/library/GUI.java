@@ -70,8 +70,8 @@ public class GUI extends JDialog {
 			contentPanel.add(gui_title);
 		}
 		{
-			 gui_excellabel = new JLabel("Use Excel");
-			gui_excellabel.setBounds(86, 60, 102, 14);
+			 gui_excellabel = new JLabel("Use Excel to select Test Cases");
+			gui_excellabel.setBounds(30, 60, 183, 14);
 			contentPanel.add(gui_excellabel);
 		}
 		{
