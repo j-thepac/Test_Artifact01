@@ -42,7 +42,7 @@ public class Test_cases {
 		GUI_object.setVisible(true);
 		
 		if(bGUI_checkbox==true)
-			aTest_case_ID.addAll(oExcel.get_testcases("C:\\Users\\Guest\\Desktop\\Test_sheet.xls", "Index"));
+			aTest_case_ID.addAll(oExcel.get_testcases(".\\src\\test\\java\\com\\Test_cases\\Test_sheet.xls", "Index"));
 		else
 			aTest_case_ID.add(1);
 		
