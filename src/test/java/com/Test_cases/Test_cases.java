@@ -11,7 +11,9 @@ import java.util.List;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.google.common.base.Splitter;
@@ -74,47 +76,48 @@ public class Test_cases {
 					i=i+1;
 			}
 			
-		for(int j=0;j<=iTest_cases.length-1;j++)
-			System.out.println(iTest_cases[j]);
+//		for(int j=0;j<=iTest_cases.length-1;j++)
+//			System.out.println(iTest_cases[j]);
 		}
-		
-		
-			
-//		{
-//			ArrayList<Integer> oTest_case_ID=new ArrayList<Integer>();
-//			oTest_case_ID.addAll(oExcel.get_testcases(".\\src\\test\\java\\com\\Test_cases\\Test_sheet.xls", "Index"));		
-//		}
-//		else	
-//
-//			ArrayList<Object> oTest_case_ID=new ArrayList(Splitter.on(",").omitEmptyStrings().trimResults().splitToList(sGUI_testcases));	//Guava API
-//		
-//	    iTest_cases= new int[oTest_case_ID.size()];
-//	    
-//	    //Validating and accepting only Test Case ID of type Integer and dumping it into an array
-//		for (Object o:oTest_case_ID){			
-//			try{
-//				if(Integer.parseInt(o.toString())>0)
-//						iTest_cases[i]=Integer.parseInt(o.toString());
-//			}catch(NumberFormatException er){
-//				System.out.println("---------Class:Test_cases , Line 69 = "+er.getMessage());
-//			}
-//			i=i+1;
-//		}
 
-	    
 		
-    	}
-
-
-    @Test
-    public void test1(){
-        System.out.println("test1");
     }
+
+
+    @DataProvider
+    public Object[][] TestCase_loop() {
+
+    	Object[][] oaTestcase_ID = new Object[iTest_cases.length][2];
+    	for(int i=0;i<=iTest_cases.length-1;i++){
+    		oaTestcase_ID[i][0]=iTest_cases[i];
+    		oaTestcase_ID[i][1]=i+1;
+    	}
+    	return oaTestcase_ID;
+    }    
+    
+    
+    @BeforeMethod
+    public void init(){
+    	System.out.print("Preparing to Execute : ");
+    }
+    
+    
+    @Test(dataProvider="TestCase_loop")  //4th
+    public void someTest(int iTestCase_ID,int iSlno) {
+    	
+    	System.out.println(iSlno+") Starting execution of Test Case bearing TestID- "+iTestCase_ID);
+//        i=i+1;
+//        System.out.println("Name of test is " + method.getName()+" "+i);
+//        System.out.println("Suite name is " + context.getSuite().getName()+" "+i);
+    }
+   
+
+
 
     
     @AfterMethod
     public void teardown(){
-    	
+    	System.out.println("Performing teardown\n");
     }
     
     @AfterSuite

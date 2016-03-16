@@ -1,6 +1,6 @@
 <!--     -->
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Can Be any name" verbose="1" parallel="false" >
+<suite name="This is a Suite Name" verbose="1" parallel="false" >
 
     <listeners>
         <listener class-name="org.uncommons.reportng.HTMLReporter"/>
@@ -8,7 +8,7 @@
         <listener class-name="com.report_generator.TestNGCustomReportListener" />
     </listeners>
 
-    <test name="some test">
+    <test name="This is Test Name ">
         <classes>
             <class name="com.Test_cases.Test_cases" />
         </classes>

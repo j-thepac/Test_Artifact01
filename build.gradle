@@ -128,7 +128,8 @@ test {
 	
 	testLogging {	
 	showStandardStreams = true //enable system.out in console
-	events "passed", "skipped", "failed", "standardOut", "standardError" //enable result
+	testLogging.exceptionFormat = 'full'
+	events "passed", "skipped", "failed", "standardError","standardOut" //enable result 
 	}
 	
     useTestNG {
