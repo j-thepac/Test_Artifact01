@@ -2,15 +2,15 @@
 //https://github.com/codeborne/selenide/blob/master/build.gradle
 
 task gradle_start{
-println '\n\n  _-_-_-_-_-_	STARTING GR@DL3 EXECUTION   _-_-_-_-_-_	\n\n'
+	println '\n\n  _-_-_-_-_-_	STARTING GR@DL3 EXECUTION   _-_-_-_-_-_	\n\n'
 }
 
 
 version '1.0-SNAPSHOT'
 
 buildscript {
-repositories { jcenter() }
-dependencies {  classpath 'de.undercouch:gradle-download-task:2.1.0'}
+	repositories { jcenter() }
+	dependencies {  classpath 'de.undercouch:gradle-download-task:2.1.0'}
   }
 
 
@@ -51,7 +51,7 @@ import de.undercouch.gradle.tasks.download.Download
 
 task downloadIEDriverZip(type: Download) {
 
-println '\n-------------------IE initialization start------------------'
+	println '\n-------------------IE initialization start------------------'
   src 'http://selenium-release.storage.googleapis.com/2.52/IEDriverServer_Win32_2.52.0.zip'
   dest new File(buildDir, 'IEDriverServer.zip')
   quiet false
@@ -122,14 +122,14 @@ task chrome(type: Test, dependsOn: downloadAndUnzipChromeDriver) {
 test {
 
     compileTestJava {
-    options.encoding = 'UTF-8'
-    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+	    options.encoding = 'UTF-8'
+	    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
 	}
 	
 	testLogging {	
-	showStandardStreams = true //enable system.out in console
-	testLogging.exceptionFormat = 'full'
-	events "passed", "skipped", "failed", "standardError","standardOut" //enable result 
+		showStandardStreams = true //enable system.out in console
+		testLogging.exceptionFormat = 'full'
+		events "passed", "skipped", "failed", "standardError","standardOut" //enable result 
 	}
 	
     useTestNG {

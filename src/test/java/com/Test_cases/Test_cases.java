@@ -6,9 +6,13 @@ package com.Test_cases;
 
 
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
@@ -37,10 +41,11 @@ public class Test_cases {
 	
 	public Excel oExcel;
 	public int[] iTest_cases;
+	HashMap<String, String> hTest_data;
     
     @BeforeSuite
     public void before_suite() throws InterruptedException{
-    	
+
     	ArrayList<Integer> ilTest_case_ID = null;
     	List<String> slTest_case_ID = null;
     	
@@ -98,14 +103,39 @@ public class Test_cases {
     
     @BeforeMethod
     public void init(){
-    	System.out.print("Preparing to Execute : ");
+
+    	//System.out.print("Preparing to Execute : ");
     }
     
     
     @Test(dataProvider="TestCase_loop")  //4th
     public void someTest(int iTestCase_ID,int iSlno) {
-    	
-    	System.out.println(iSlno+") Starting execution of Test Case bearing TestID- "+iTestCase_ID);
+    	hTest_data=new HashMap<String,String>();
+    	hTest_data.put("abc", "xyz");
+    	TestCase1_100 oTestcase=new TestCase1_100();
+    //	System.out.println(oTestcase.getClass().getMethods().toString());
+    	try {
+    		//String sTestCase_ID="TestCase"+iTestCase_ID;
+			Method m=oTestcase.getClass().getMethod("TestCase"+iTestCase_ID,java.util.HashMap.class);
+		
+				try {
+					m.invoke(new TestCase1_100(),hTest_data);
+					//soft_assert.assertAll();        
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		} catch (NoSuchMethodException |SecurityException e) {
+			//System.out.print(e.getMessage());
+			e.printStackTrace();
+		}
+ //   	System.out.print(iSlno+") Starting execution of Test Case bearing TestID- "+iTestCase_ID);
 //        i=i+1;
 //        System.out.println("Name of test is " + method.getName()+" "+i);
 //        System.out.println("Suite name is " + context.getSuite().getName()+" "+i);
@@ -117,12 +147,12 @@ public class Test_cases {
     
     @AfterMethod
     public void teardown(){
-    	System.out.println("Performing teardown\n");
+    	System.out.print("----------------Performing teardown ----------------\n");
     }
     
     @AfterSuite
     public void cleanup(){
-    	
+    	System.out.print("----------------Performing clean up of Suite----------------\n");
     }
     
     
