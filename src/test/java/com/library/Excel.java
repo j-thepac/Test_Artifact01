@@ -25,10 +25,13 @@ public class Excel {
 			e.printStackTrace();
 		}
 		sheet = wb.getSheet(sSheet_name);
-		for(int row=0;row<=sheet.getLastRowNum();row++)
+		
+		/*Loop through all rows and hardcoded columns  to Grab only TCID and making sure it is of type integer*/
+		for(int row=0;row<=sheet.getLastRowNum();row++){
 			if(sheet.getRow(row).getCell(1).getRichStringCellValue().toString().toLowerCase().equals("yes"))
 				sTest_case_ID.add((int) sheet.getRow(row).getCell(0).getNumericCellValue());
-
+		}
+		
 		return sTest_case_ID;
     }
 

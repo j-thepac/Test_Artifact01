@@ -104,10 +104,11 @@ public class GUI extends JDialog {
 			Gui_TextField_Tcs = new JTextField();
 			Gui_TextField_Tcs.addKeyListener(new KeyAdapter() {
 				@Override
-				public void keyPressed(KeyEvent arg0) {
+				public void keyReleased(KeyEvent e) {
 					sGUI_testcases=Gui_TextField_Tcs.getText();
 				}
 			});
+
 			Gui_TextField_Tcs.setBounds(219, 110, 210, 20);
 			contentPanel.add(Gui_TextField_Tcs);
 			Gui_TextField_Tcs.setColumns(10);

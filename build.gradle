@@ -120,8 +120,13 @@ task chrome(type: Test, dependsOn: downloadAndUnzipChromeDriver) {
 
  println '//\n------------------------Testing Started---------------------------------'
 test {
-	testLogging {
+
+    compileTestJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+	}
 	
+	testLogging {	
 	showStandardStreams = true //enable system.out in console
 	events "passed", "skipped", "failed", "standardOut", "standardError" //enable result
 	}
@@ -142,7 +147,6 @@ test {
         listeners << 'org.uncommons.reportng.JUnitXMLReporter'
         listeners << 'com.report_generator.TestNGCustomReportListener'
     }
-
 }
 
 //task wrapper(type: Wrapper) {
