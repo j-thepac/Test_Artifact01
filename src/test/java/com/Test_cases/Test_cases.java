@@ -117,7 +117,7 @@ public class Test_cases {
     	TestCase1_100 oTestcase=new TestCase1_100();
     //	System.out.println(oTestcase.getClass().getMethods().toString());
     	try {
-    		//String sTestCase_ID="TestCase"+iTestCase_ID;
+    		//Reflection getmethod(method name , parameter1.Class,parameter2.Class)
 			Method m=oTestcase.getClass().getMethod("TestCase"+iTestCase_ID,java.util.HashMap.class,org.testng.asserts.SoftAssert.class);		
 				try {
 					m.invoke(new TestCase1_100(),hTest_data,soft_assert);					
