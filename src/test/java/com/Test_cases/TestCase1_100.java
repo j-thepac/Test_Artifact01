@@ -6,8 +6,11 @@ import java.util.HashMap;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
+import com.library.Driver_class;
+
 public class TestCase1_100 {
 	  //SoftAssert soft_assert=new SoftAssert();
+	Driver_class driver;
 	
 	public  boolean TestCase44(HashMap<String, String> hTest_data,SoftAssert soft_assert){		
 		System.out.println("TestCase44");
@@ -28,7 +31,7 @@ public class TestCase1_100 {
 		return true;
 	}
 	
-	public boolean TestCase4(HashMap<String, String> hTest_data,SoftAssert soft_assert){		
+	public boolean TestCase56(HashMap<String, String> hTest_data,SoftAssert soft_assert){		
 		System.out.println("TestCase4");
 
 		return true;
