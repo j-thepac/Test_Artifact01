@@ -19,6 +19,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.google.common.base.Splitter;
 import com.google.common.primitives.Ints;
@@ -110,17 +111,17 @@ public class Test_cases {
     
     @Test(dataProvider="TestCase_loop")  //4th
     public void someTest(int iTestCase_ID,int iSlno) {
+    	SoftAssert soft_assert=new SoftAssert();
     	hTest_data=new HashMap<String,String>();
     	hTest_data.put("abc", "xyz");
     	TestCase1_100 oTestcase=new TestCase1_100();
     //	System.out.println(oTestcase.getClass().getMethods().toString());
     	try {
     		//String sTestCase_ID="TestCase"+iTestCase_ID;
-			Method m=oTestcase.getClass().getMethod("TestCase"+iTestCase_ID,java.util.HashMap.class);
-		
+			Method m=oTestcase.getClass().getMethod("TestCase"+iTestCase_ID,java.util.HashMap.class,org.testng.asserts.SoftAssert.class);		
 				try {
-					m.invoke(new TestCase1_100(),hTest_data);
-					//soft_assert.assertAll();        
+					m.invoke(new TestCase1_100(),hTest_data,soft_assert);					
+					soft_assert.assertAll();        
 				} catch (IllegalAccessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
