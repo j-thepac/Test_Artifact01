@@ -23,19 +23,19 @@ public class TestCase1_100 implements  Page_Object_Model {
 		return true;
 	}
 
-	public  boolean TestCase48(HashMap<String, String> hTest_data,SoftAssert soft_assert){			
+	public  boolean TestCase48(WebDriver driver,HashMap<String, String> hTest_data,SoftAssert soft_assert){			
 			System.out.println("TestCase48");
 			Assert.assertEquals("abc", "ABC");  
 			return true;
 		}
 	
-	public boolean TestCase52(HashMap<String, String> hTest_data,SoftAssert soft_assert){		
+	public boolean TestCase52(WebDriver driver,HashMap<String, String> hTest_data,SoftAssert soft_assert){		
 		System.out.println("TestCase52");
 		soft_assert.assertEquals("ABC", "ABC");
 		return true;
 	}
 	
-	public boolean TestCase56(HashMap<String, String> hTest_data,SoftAssert soft_assert){		
+	public boolean TestCase56(WebDriver driver,HashMap<String, String> hTest_data,SoftAssert soft_assert){		
 		System.out.println("TestCase4");
 
 		return true;
