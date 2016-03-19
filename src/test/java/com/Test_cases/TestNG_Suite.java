@@ -3,15 +3,13 @@ package com.Test_cases;
 //import org.testng.annotations.BeforeMethod;
 //import org.testng.annotations.Test;
 
-
-
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -23,15 +21,33 @@ import org.testng.asserts.SoftAssert;
 
 import com.google.common.base.Splitter;
 import com.google.common.primitives.Ints;
+import com.library.Driver_class;
 import com.library.Excel;
 import com.library.GUI;
 
 import javax.swing.*;
 
 /**
- * Created by Guest on 2/21/2016.
+1. User can change the test cases in excel or entering 44,48 in GUI
+2. Currently only 3 test cases are created 44,48,52
+3. To run right ck on build.gradle >Run as Gradle  in Eclipse
+4. To run in Cmd prompt:  refer "http://catchbug.blogspot.in/2016/03/gradle-how-to-set-gradle.html"
+
+How to Run:
+1. right ck on build.gradle >Run as Gradle  in Eclipse
+2. Files gets downloded
+3. GUI will open
+4. You can directly check the checkbox and press start  ( use selection already made in excel )
+5. Or manually type testcase ID Eg: 44,48 and Press OK
+
+@dataprovider- Loops (@Before-@Test-@AfterTest) in sequencedepeding on the number of test cases or TestID provided in GUI
+
+@Beforemethod -Configures driver ie., IE ,FF etc., but does not open the browser
+@Test - User gets the driver arguement here . User needs to specifically enter link or link is fetched from excel(not implemented yet)
+@After - closes the driver 
+
  */
-public class Test_cases {
+public class TestNG_Suite {
 
     public static StringBuffer check_execution =new StringBuffer();
     public static String username;
@@ -43,6 +59,7 @@ public class Test_cases {
 	public Excel oExcel;
 	public int[] iTest_cases;
 	HashMap<String, String> hTest_data;
+	public WebDriver driver;
     
     @BeforeSuite
     public void before_suite() throws InterruptedException{
@@ -103,42 +120,47 @@ public class Test_cases {
     
     @BeforeMethod
     public void init(){
-
+    	Driver_class dc=new Driver_class();
+    	this.driver=dc.create_driver(this.sGUI_Browser, 40, 40);
     	//System.out.print("Preparing to Execute : ");
     }
     
     
     @Test(dataProvider="TestCase_loop")  //4th
     public void someTest(int iTestCase_ID,int iSlno) {
+    	Page_Object_Model oTestcase=null;			//Polymorhism ie., Page_Object_Model is an interface 
     	SoftAssert soft_assert=new SoftAssert();
     	hTest_data=new HashMap<String,String>();
-    	hTest_data.put("abc", "xyz");
-    	TestCase1_100 oTestcase=new TestCase1_100();
-    //	System.out.println(oTestcase.getClass().getMethods().toString());
+    	hTest_data.put("abc", "xyz"); 				//some junk data to avoid nullpointerexception
+
+    	try{
+	    	if(iTestCase_ID<=100)	
+	    		oTestcase=new TestCase1_100();	    //Polymorhism ie., TestCase1_100 implements Page_Object_Model 	
+	    	else if(iTestCase_ID>100 && iTestCase_ID<=200)
+	    		oTestcase=new TestCase101_200();	//Polymorhism ie., TestCase101_200 implements Page_Object_Model 	
+	    	}catch(Exception e){
+	    		System.out.println("----------Err: Test_cases.java , someTest !! ----------");
+	    		Assert.assertTrue(false);
+	    		e.printStackTrace();
+    	}
+
     	try {
-    		//Reflection getmethod(method name , parameter1.Class,parameter2.Class)
-			Method m=oTestcase.getClass().getMethod("TestCase"+iTestCase_ID,java.util.HashMap.class,org.testng.asserts.SoftAssert.class);		
+			Method m=oTestcase.getClass().getMethod("TestCase"+iTestCase_ID,WebDriver.class,java.util.HashMap.class,org.testng.asserts.SoftAssert.class);		
 				try {
-					m.invoke(new TestCase1_100(),hTest_data,soft_assert);					
+					m.invoke(oTestcase,driver,hTest_data,soft_assert);					
 					soft_assert.assertAll();        
 				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 		} catch (NoSuchMethodException |SecurityException e) {
-			//System.out.print(e.getMessage());
+
 			e.printStackTrace();
 		}
- //   	System.out.print(iSlno+") Starting execution of Test Case bearing TestID- "+iTestCase_ID);
-//        i=i+1;
-//        System.out.println("Name of test is " + method.getName()+" "+i);
-//        System.out.println("Suite name is " + context.getSuite().getName()+" "+i);
+
     }
    
 
@@ -147,6 +169,8 @@ public class Test_cases {
     
     @AfterMethod
     public void teardown(){
+    	driver.close();
+    	//driver.quit();
     	System.out.print("----------------Performing teardown ----------------\n");
     }
     

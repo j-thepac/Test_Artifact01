@@ -10,7 +10,7 @@
 
     <test name="This is Test Name ">
         <classes>
-            <class name="com.Test_cases.Test_cases" />
+            <class name="com.Test_cases.TestNG_Suite"/>
         </classes>
     </test>
 

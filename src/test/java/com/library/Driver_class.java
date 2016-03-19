@@ -15,7 +15,7 @@ public class Driver_class {
 	private int iPage_loadtimeout;
 	private int implicitlyWait;
 	
-	public void Driver_class(String sBrowser,int iPage_loadtimeout,int implicitlyWait)
+	public WebDriver create_driver(String sBrowser,int iPage_loadtimeout,int implicitlyWait)
 	{
 		if (sBrowser.toLowerCase()=="ie")
 			this.driver=new InternetExplorerDriver();
@@ -30,7 +30,7 @@ public class Driver_class {
 		
 		this.driver.manage().timeouts().pageLoadTimeout(iPage_loadtimeout, TimeUnit.SECONDS); 
 		this.driver.manage().timeouts().implicitlyWait(implicitlyWait,TimeUnit.SECONDS);
-		
+		return driver;
 		
 	}
 	

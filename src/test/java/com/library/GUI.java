@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
-import com.Test_cases.Test_cases;
+import com.Test_cases.TestNG_Suite;
 
 
 
@@ -150,9 +150,9 @@ public class GUI extends JDialog {
 //							gradletest.sGUI_Browser="";
 //							gradletest.sGUI_testcases=Gui_TextField_Tcs.getText();
 //						
-						Test_cases.bGUI_checkbox=bGUI_checkbox;
-						Test_cases.sGUI_Browser=sGUI_Browser;
-						Test_cases.sGUI_testcases=sGUI_testcases;
+						TestNG_Suite.bGUI_checkbox=bGUI_checkbox;
+						TestNG_Suite.sGUI_Browser=sGUI_Browser;
+						TestNG_Suite.sGUI_testcases=sGUI_testcases;
 						setVisible(false);
 						dispose();
 						
