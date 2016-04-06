@@ -81,7 +81,7 @@ public class TestNG_Suite {
 		if(bGUI_checkbox==true){
 			ilTest_case_ID=oExcel.get_testcases(".\\src\\test\\java\\com\\Test_cases\\Test_sheet.xls", "Index");
 			iTest_cases=new int[ilTest_case_ID.size()];
-			iTest_cases=Ints.toArray(ilTest_case_ID);
+			iTest_cases=Ints.toArray(ilTest_case_ID); //Convert to Array for DataProvider(Ints is Guava API)
 		}
 		else{		
 				/*To grab data from edit field  - convert to list (remove blanks)- validate each element is integer
@@ -144,7 +144,7 @@ public class TestNG_Suite {
 	    		e.printStackTrace();
     	}
 
-    	try {
+    	try {//reflections getMethod(methodname,driverclass,excelDataclass,assertclass)
 			Method m=oTestcase.getClass().getMethod("TestCase"+iTestCase_ID,WebDriver.class,java.util.HashMap.class,org.testng.asserts.SoftAssert.class);		
 				try {
 					m.invoke(oTestcase,driver,hTest_data,soft_assert);					
