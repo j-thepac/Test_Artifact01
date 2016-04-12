@@ -147,7 +147,7 @@ public class TestNG_Suite {
     	try {//reflections getMethod(methodname,driverclass,excelDataclass,assertclass)
 			Method m=oTestcase.getClass().getMethod("TestCase"+iTestCase_ID,WebDriver.class,java.util.HashMap.class,org.testng.asserts.SoftAssert.class);		
 				try {
-					m.invoke(oTestcase,driver,hTest_data,soft_assert);					
+					soft_assert=(SoftAssert) m.invoke(oTestcase,driver,hTest_data,soft_assert);					
 					soft_assert.assertAll();        
 				} catch (IllegalAccessException e) {
 					e.printStackTrace();
