@@ -19,7 +19,8 @@ public class TestCase1_100 implements  Page_Object_Model {
 		//soft_assert.assertTrue(driver.findElement(this.page1_button1).isDisplayed());
 
 //		System.out.println("TestCase44");
-	soft_assert.assertEquals("abc", "ABC");
+		System.out.println(hTest_data);
+		soft_assert.assertEquals("ABC", "ABC");
 	//soft_assert.assertAll();
 		return soft_assert;
 	}

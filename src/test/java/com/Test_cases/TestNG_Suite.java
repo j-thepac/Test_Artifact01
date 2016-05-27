@@ -60,6 +60,10 @@ public class TestNG_Suite {
 	public int[] iTest_cases;
 	HashMap<String, String> hTest_data;
 	public WebDriver driver;
+	
+	TestNG_Suite(){
+		oExcel=new Excel(".\\src\\test\\java\\com\\Test_cases\\Test_sheet.xls");
+	}
     
     @BeforeSuite
     public void before_suite() throws InterruptedException{
@@ -67,7 +71,7 @@ public class TestNG_Suite {
     	ArrayList<Integer> ilTest_case_ID = null;
     	List<String> slTest_case_ID = null;
     	
-    	oExcel=new Excel();
+    	//oExcel=new Excel(".\\src\\test\\java\\com\\Test_cases\\Test_sheet.xls");
     	int size,i=0;
     	
     	GUI GUI_object=new GUI();
@@ -79,7 +83,7 @@ public class TestNG_Suite {
 		Uses Guava API */
 		
 		if(bGUI_checkbox==true){
-			ilTest_case_ID=oExcel.get_testcases(".\\src\\test\\java\\com\\Test_cases\\Test_sheet.xls", "Index");
+			ilTest_case_ID=oExcel.get_testcases("Index");
 			iTest_cases=new int[ilTest_case_ID.size()];
 			iTest_cases=Ints.toArray(ilTest_case_ID); //Convert to Array for DataProvider(Ints is Guava API)
 		}
@@ -130,8 +134,8 @@ public class TestNG_Suite {
     public void someTest(int iTestCase_ID,int iSlno) {
     	Page_Object_Model oTestcase=null;			//Polymorhism ie., Page_Object_Model is an interface 
     	SoftAssert soft_assert=new SoftAssert();
-    	hTest_data=new HashMap<String,String>();
-    	hTest_data.put("abc", "xyz"); 				//some junk data to avoid nullpointerexception
+    	hTest_data=oExcel.get_TestData(Integer.toString(iTestCase_ID));//new HashMap<String,String>();
+    	//hTest_data.put("abc", "xyz"); 				//some junk data to avoid nullpointerexception
 
     	try{
 	    	if(iTestCase_ID<=100)	
