@@ -1,10 +1,13 @@
 //http://htchttp.s3.amazonaws.com/books/Gradle%20Beyond%20the%20Basics.pdf
 //https://github.com/codeborne/selenide/blob/master/build.gradle
 //https://github.com/michel-kraemer/gradle-download-task
-
+//https://github.com/colinbjohnson/snippets/blob/master/gradle/gradle_file_exists/build.gradle
+//https://www.rosettacode.org/wiki/Check_that_file_exists#Groovy
+//http://stackoverflow.com/questions/23288470/gradle-always-does-println-from-any-task
+//http://stackoverflow.com/questions/17051140/gradle-println-prints-when-it-is-not-called
 
 task gradle_start{
-	println '\n\n  _-_-_-_-_-_	STARTING GR@DL3 EXECUTION   _-_-_-_-_-_	\n\n'
+	 doFirst {println '\n\n  _-_-_-_-_-_	STARTING GR@DL3 EXECUTION   _-_-_-_-_-_	\n\n' }
 }
 
 
@@ -39,6 +42,7 @@ repositories {
 dependencies {
 
 	compile 'com.google.guava:guava:19.+'		// by google - Provides vast string apis,ArrayList >Array api etc.,
+	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
 	
 	testCompile'org.testng:testng:6.+'
     testCompile 'org.uncommons:reportng:1.+'
@@ -59,26 +63,31 @@ import de.undercouch.gradle.tasks.download.Download
 
 task downloadIEDriverZip(type: Download) {
 
-  println '\n-------------------IE initialization start------------------'
+   doFirst {println '\n-------------------IE initialization start------------------'}
+   
   src 'https://selenium-release.storage.googleapis.com/2.53/IEDriverServer_x64_2.53.1.zip'
   dest new File(buildDir, 'IEDriverServer.zip')
   quiet false
   overwrite true
   onlyIfNewer true
   compress false
-  println "Download IE driver: " + src + " to " + dest
+  
+ doLast { println "Download IE driver: " + src + " to " + dest}
 }
 
 task downloadAndUnzipIEDriver(dependsOn: downloadIEDriverZip, type: Copy) {
-  println "Unzip IE driver: " + downloadIEDriverZip.dest
+   doFirst {println "Unzip IE driver: " + downloadIEDriverZip.dest}
+   
   from zipTree(downloadIEDriverZip.dest)
   into buildDir
 }
 
 task ie(type: Test, dependsOn: downloadAndUnzipIEDriver) {
-  println 'Use IE driver: ' + buildDir + '/IEDriverServer.exe'
+   doFirst {println 'Use IE driver: ' + buildDir + '/IEDriverServer.exe'}
+   
   systemProperties['webdriver.ie.driver'] = new File(buildDir, 'IEDriverServer.exe')
-  println '//---------------------------IE initialization finished ---------------\n'
+  
+ doLast { println '//---------------------------IE initialization finished ---------------\n'}
 }
 
 
@@ -86,7 +95,8 @@ task ie(type: Test, dependsOn: downloadAndUnzipIEDriver) {
 import org.gradle.internal.os.OperatingSystem;
 
 task downloadChromeDriverZip(type: Download) {
-println '\n--------------------CHROME Driver initialization start ---------------'
+ doFirst {println '\n--------------------CHROME Driver initialization start ---------------'}
+ 
   if (OperatingSystem.current().isMacOsX()) {
     src 'http://chromedriver.storage.googleapis.com/2.21/chromedriver_mac32.zip'
   }
@@ -101,19 +111,23 @@ println '\n--------------------CHROME Driver initialization start --------------
   overwrite true
   onlyIfNewer true
   compress false
-  println "Download Chrome driver: " + src + " to " + dest
+  
+ doLast { println "Download Chrome driver: " + src + " to " + dest}
 }
 
 task downloadAndUnzipChromeDriver(dependsOn: downloadChromeDriverZip, type: Copy) {
-  println "Unzip Chrome driver: " + downloadChromeDriverZip.dest
+   doFirst {println "Unzip Chrome driver: " + downloadChromeDriverZip.dest}
+   
   from zipTree(downloadChromeDriverZip.dest)
   into buildDir
 }
 
 task chrome(type: Test, dependsOn: downloadAndUnzipChromeDriver) {
-  println 'Use Chrome driver: ' + buildDir + '/chromedriver'
+ doFirst {  println 'Use Chrome driver: ' + buildDir + '/chromedriver.exe'}
+ 
   systemProperties['webdriver.chrome.driver'] = new File(buildDir, 'chromedriver')
-  println '//------------------------Chrome initialization finished----------------------------------\n'
+  
+doLast {  println '//------------------------Chrome initialization finished----------------------------------\n'}
 }
 
 
