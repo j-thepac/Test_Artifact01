@@ -1,5 +1,7 @@
 //http://htchttp.s3.amazonaws.com/books/Gradle%20Beyond%20the%20Basics.pdf
 //https://github.com/codeborne/selenide/blob/master/build.gradle
+//https://github.com/michel-kraemer/gradle-download-task
+
 
 task gradle_start{
 	println '\n\n  _-_-_-_-_-_	STARTING GR@DL3 EXECUTION   _-_-_-_-_-_	\n\n'
@@ -16,9 +18,10 @@ buildscript {
 		}
 	dependencies 
 		{  
-			classpath 'de.undercouch:gradle-download-task:2.1+'
+			classpath 'de.undercouch:gradle-download-task:3.+'
 		}
   }
+  
 
 
 apply plugin: 'maven'
@@ -37,16 +40,12 @@ dependencies {
 
 	compile 'com.google.guava:guava:19.+'		// by google - Provides vast string apis,ArrayList >Array api etc.,
 	
-	 testCompile'org.testng:testng:6.+'
-    //testCompile('org.testng:testng:6.9.10') 						//http://mvnrepository.com/artifact/org.testng/testng/6.9.10
-   // testCompile 'org.uncommons:reportng:1.1.4'  					//http://mvnrepository.com/artifact/org.uncommons/reportng
+	testCompile'org.testng:testng:6.+'
     testCompile 'org.uncommons:reportng:1.+'
     testCompile 'org.seleniumhq.selenium:selenium-java:2.+'
-   // testCompile 'org.seleniumhq.selenium:selenium-java:2.52.0'   //http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
     testCompile 'com.google.inject:guice:3.+'
     testCompile 'velocity:velocity-dep:1.4'
     testCompile	'org.apache.poi:poi:3.14'
-    //testCompile 'com.github.sd4324530:fastexcel:0.0.3'
     testCompile 'org.apache.poi:poi-ooxml:3.14'
     
  
@@ -61,13 +60,13 @@ import de.undercouch.gradle.tasks.download.Download
 task downloadIEDriverZip(type: Download) {
 
   println '\n-------------------IE initialization start------------------'
-  src 'http://selenium-release.storage.googleapis.com/2.52/IEDriverServer_Win32_2.53.0.zip'
+  src 'https://selenium-release.storage.googleapis.com/2.53/IEDriverServer_x64_2.53.1.zip'
   dest new File(buildDir, 'IEDriverServer.zip')
   quiet false
   overwrite true
   onlyIfNewer true
   compress false
-  println "Download IE driver: " + src
+  println "Download IE driver: " + src + " to " + dest
 }
 
 task downloadAndUnzipIEDriver(dependsOn: downloadIEDriverZip, type: Copy) {
@@ -78,13 +77,7 @@ task downloadAndUnzipIEDriver(dependsOn: downloadIEDriverZip, type: Copy) {
 
 task ie(type: Test, dependsOn: downloadAndUnzipIEDriver) {
   println 'Use IE driver: ' + buildDir + '/IEDriverServer.exe'
-  systemProperties['selenide.browser'] = 'ie'
   systemProperties['webdriver.ie.driver'] = new File(buildDir, 'IEDriverServer.exe')
-  systemProperties['selenide.timeout'] = '8000'
-  include 'integration/**/*'
-  exclude '**/AlertText.*'
-  exclude '**/ConfirmTest.*'
-  exclude 'com/codeborne/selenide/**/*'
   println '//---------------------------IE initialization finished ---------------\n'
 }
 
@@ -119,10 +112,7 @@ task downloadAndUnzipChromeDriver(dependsOn: downloadChromeDriverZip, type: Copy
 
 task chrome(type: Test, dependsOn: downloadAndUnzipChromeDriver) {
   println 'Use Chrome driver: ' + buildDir + '/chromedriver'
-  systemProperties['selenide.browser'] = 'chrome'
   systemProperties['webdriver.chrome.driver'] = new File(buildDir, 'chromedriver')
-  include 'integration/**/*'
-  exclude 'com/codeborne/selenide/**/*'
   println '//------------------------Chrome initialization finished----------------------------------\n'
 }
 

@@ -1,5 +1,6 @@
 package com.library;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -17,8 +18,14 @@ public class Driver_class {
 	
 	public WebDriver create_driver(String sBrowser,int iPage_loadtimeout,int implicitlyWait)
 	{
-		if (sBrowser.toLowerCase()=="ie")
+		if (sBrowser.toLowerCase()=="ie"){
+			File ie_exe=new File(".\\build\\IEDriverServer.exe");
+			if (ie_exe.exists())
+				System.out.println("Ie.exe exists");
+			else
+				System.out.println("Ie.exe not exists");
 			this.driver=new InternetExplorerDriver();
+		}
 		else if (sBrowser.toLowerCase()=="chromedriver")
 			this.driver=new ChromeDriver();
 		else
