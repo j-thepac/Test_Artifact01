@@ -9,7 +9,7 @@
 //https://github.com/bonigarcia/webdrivermanager
 //http://www.dreamchain.com/gradle-selenium-webdriver-task/
 //https://gist.github.com/cbmeeks/5636200  --seleniumCompile 
-
+//https://docs.gradle.org/current/userguide/tutorial_gradle_command_line.html#sec:listing_tasks
 
 task gradle_start{
 	 println '\n\n  _-_-_-_-_-_	STARTING GR@DL3 EXECUTION   _-_-_-_-_-_	\n\n' 
@@ -92,8 +92,8 @@ test {
     }
 }
 
-//task wrapper(type: Wrapper) {
-//  gradleVersion = '2.11'
-//  jarFile = './gradle-wrapper/gradle-wrapper.jar'
- // scriptFile = './gradle'
-//}
+task wrapper(type: Wrapper) {
+ gradleVersion = '2.11'
+  jarFile = './gradle-wrapper/gradle-wrapper.jar'
+ scriptFile = './gradle'
+}
