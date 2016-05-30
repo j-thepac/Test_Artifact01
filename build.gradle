@@ -1,13 +1,15 @@
-//http://htchttp.s3.amazonaws.com/books/Gradle%20Beyond%20the%20Basics.pdf
+//radle//http://htchttp.s3.amazonaws.com/books/Gradle%20Beyond%20the%20Basics.pdf
 //https://github.com/codeborne/selenide/blob/master/build.gradle
 //https://github.com/michel-kraemer/gradle-download-task
 //https://github.com/colinbjohnson/snippets/blob/master/gradle/gradle_file_exists/build.gradle
 //https://www.rosettacode.org/wiki/Check_that_file_exists#Groovy
 //http://stackoverflow.com/questions/23288470/gradle-always-does-println-from-any-task
 //http://stackoverflow.com/questions/17051140/gradle-println-prints-when-it-is-not-called
+//http://stackoverflow.com/questions/17389293/how-to-configure-selenium-tests-with-gradle
+//https://github.com/bonigarcia/webdrivermanager
 
 task gradle_start{
-	 doFirst {println '\n\n  _-_-_-_-_-_	STARTING GR@DL3 EXECUTION   _-_-_-_-_-_	\n\n' }
+	 println '\n\n  _-_-_-_-_-_	STARTING GR@DL3 EXECUTION   _-_-_-_-_-_	\n\n' 
 }
 
 
@@ -51,6 +53,9 @@ dependencies {
     testCompile 'velocity:velocity-dep:1.4'
     testCompile	'org.apache.poi:poi:3.14'
     testCompile 'org.apache.poi:poi-ooxml:3.14'
+    testCompile("io.github.bonigarcia:webdrivermanager:1.4.1") {
+        exclude group: 'org.seleniumhq.selenium'
+    }
     
  
    //	testCompile 'org.seleniumhq.selenium:selenium-ie-driver:2.44.0'

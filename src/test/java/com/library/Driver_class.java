@@ -26,8 +26,10 @@ public class Driver_class {
 				System.out.println("Ie.exe not exists");
 			this.driver=new InternetExplorerDriver();
 		}
-		else if (sBrowser.toLowerCase()=="chromedriver")
+		else if (sBrowser.toLowerCase()=="chromedriver"){
+			//ChromeDriverManager.getInstance().setup();
 			this.driver=new ChromeDriver();
+		}
 		else
 			this.driver=new FirefoxDriver();
 		
