@@ -1,5 +1,8 @@
 package com.library;
 
+import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
+
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
@@ -19,15 +22,11 @@ public class Driver_class {
 	public WebDriver create_driver(String sBrowser,int iPage_loadtimeout,int implicitlyWait)
 	{
 		if (sBrowser.toLowerCase()=="ie"){
-			File ie_exe=new File(".\\build\\IEDriverServer.exe");
-			if (ie_exe.exists())
-				System.out.println("Ie.exe exists");
-			else
-				System.out.println("Ie.exe not exists");
+			InternetExplorerDriverManager.getInstance().setup();			
 			this.driver=new InternetExplorerDriver();
 		}
 		else if (sBrowser.toLowerCase()=="chromedriver"){
-			//ChromeDriverManager.getInstance().setup();
+			ChromeDriverManager.getInstance().setup();
 			this.driver=new ChromeDriver();
 		}
 		else

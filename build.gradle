@@ -1,12 +1,15 @@
 //radle//http://htchttp.s3.amazonaws.com/books/Gradle%20Beyond%20the%20Basics.pdf
 //https://github.com/codeborne/selenide/blob/master/build.gradle
 //https://github.com/michel-kraemer/gradle-download-task
-//https://github.com/colinbjohnson/snippets/blob/master/gradle/gradle_file_exists/build.gradle
+//https://github.com/colinbjohnson/snippets/blob/master/gradle/gradle_file_exists/build.gradle //file exists
 //https://www.rosettacode.org/wiki/Check_that_file_exists#Groovy
 //http://stackoverflow.com/questions/23288470/gradle-always-does-println-from-any-task
 //http://stackoverflow.com/questions/17051140/gradle-println-prints-when-it-is-not-called
 //http://stackoverflow.com/questions/17389293/how-to-configure-selenium-tests-with-gradle
 //https://github.com/bonigarcia/webdrivermanager
+//http://www.dreamchain.com/gradle-selenium-webdriver-task/
+//https://gist.github.com/cbmeeks/5636200  --seleniumCompile 
+
 
 task gradle_start{
 	 println '\n\n  _-_-_-_-_-_	STARTING GR@DL3 EXECUTION   _-_-_-_-_-_	\n\n' 
@@ -26,13 +29,10 @@ buildscript {
 			classpath 'de.undercouch:gradle-download-task:3.+'
 		}
   }
-  
-
 
 apply plugin: 'maven'
 apply plugin: 'java'
 apply plugin: 'de.undercouch.download'
-
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -50,89 +50,13 @@ dependencies {
     testCompile 'org.uncommons:reportng:1.+'
     testCompile 'org.seleniumhq.selenium:selenium-java:2.+'
     testCompile 'com.google.inject:guice:3.+'
-    testCompile 'velocity:velocity-dep:1.4'
-    testCompile	'org.apache.poi:poi:3.14'
-    testCompile 'org.apache.poi:poi-ooxml:3.14'
-    testCompile("io.github.bonigarcia:webdrivermanager:1.4.1") {
+    testCompile 'velocity:velocity-dep:1.+'
+    testCompile	'org.apache.poi:poi:3.+'
+    testCompile 'org.apache.poi:poi-ooxml:3.+'
+    testCompile("io.github.bonigarcia:webdrivermanager:1.4.1") {//this will download latest Chrome or IE Driver and Configure it
         exclude group: 'org.seleniumhq.selenium'
-    }
-    
- 
-   //	testCompile 'org.seleniumhq.selenium:selenium-ie-driver:2.44.0'
-   //	testCompile 'org.seleniumhq.selenium:selenium-chrome-driver:2.52.0'
+    }//Ref https://github.com/bonigarcia/webdrivermanager
 
-}
-
-
-import de.undercouch.gradle.tasks.download.Download
-
-task downloadIEDriverZip(type: Download) {
-
-   doFirst {println '\n-------------------IE initialization start------------------'}
-   
-  src 'https://selenium-release.storage.googleapis.com/2.53/IEDriverServer_x64_2.53.1.zip'
-  dest new File(buildDir, 'IEDriverServer.zip')
-  quiet false
-  overwrite true
-  onlyIfNewer true
-  compress false
-  
- doLast { println "Download IE driver: " + src + " to " + dest}
-}
-
-task downloadAndUnzipIEDriver(dependsOn: downloadIEDriverZip, type: Copy) {
-   doFirst {println "Unzip IE driver: " + downloadIEDriverZip.dest}
-   
-  from zipTree(downloadIEDriverZip.dest)
-  into buildDir
-}
-
-task ie(type: Test, dependsOn: downloadAndUnzipIEDriver) {
-   doFirst {println 'Use IE driver: ' + buildDir + '/IEDriverServer.exe'}
-   
-  systemProperties['webdriver.ie.driver'] = new File(buildDir, 'IEDriverServer.exe')
-  
- doLast { println '//---------------------------IE initialization finished ---------------\n'}
-}
-
-
-
-import org.gradle.internal.os.OperatingSystem;
-
-task downloadChromeDriverZip(type: Download) {
- doFirst {println '\n--------------------CHROME Driver initialization start ---------------'}
- 
-  if (OperatingSystem.current().isMacOsX()) {
-    src 'http://chromedriver.storage.googleapis.com/2.21/chromedriver_mac32.zip'
-  }
-  else if (OperatingSystem.current().isLinux()) {
-    src 'http://chromedriver.storage.googleapis.com/2.21/chromedriver_linux64.zip'
-  }
-  else {
-    src 'http://chromedriver.storage.googleapis.com/2.21/chromedriver_win32.zip'
-  }
-  dest new File(buildDir, 'chromedriver.zip')
-  quiet false
-  overwrite true
-  onlyIfNewer true
-  compress false
-  
- doLast { println "Download Chrome driver: " + src + " to " + dest}
-}
-
-task downloadAndUnzipChromeDriver(dependsOn: downloadChromeDriverZip, type: Copy) {
-   doFirst {println "Unzip Chrome driver: " + downloadChromeDriverZip.dest}
-   
-  from zipTree(downloadChromeDriverZip.dest)
-  into buildDir
-}
-
-task chrome(type: Test, dependsOn: downloadAndUnzipChromeDriver) {
- doFirst {  println 'Use Chrome driver: ' + buildDir + '/chromedriver.exe'}
- 
-  systemProperties['webdriver.chrome.driver'] = new File(buildDir, 'chromedriver')
-  
-doLast {  println '//------------------------Chrome initialization finished----------------------------------\n'}
 }
 
 
